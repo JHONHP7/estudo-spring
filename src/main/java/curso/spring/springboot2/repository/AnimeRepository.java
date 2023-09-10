@@ -1,4 +1,4 @@
-package curso.spring.springboot2.service;
+package curso.spring.springboot2.repository;
 
 import curso.spring.springboot2.domain.Anime;
 import org.springframework.stereotype.Repository;
