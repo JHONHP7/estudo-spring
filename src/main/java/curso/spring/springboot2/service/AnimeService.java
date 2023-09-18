@@ -8,6 +8,7 @@ import curso.spring.springboot2.requests.AnimePutRequestBody;
 import curso.spring.springboot2.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class AnimeService {
         return animeRepository.findById(id).orElseThrow(() -> new BadRequestException("Anime not Found"));
     }
 
+    @Transactional
     public Anime save(AnimePostRequestBody animePostRequestBody) {
         Anime anime = AnimeMapper.INSTANCE.toAnimePost(animePostRequestBody);
         return animeRepository.save(anime);

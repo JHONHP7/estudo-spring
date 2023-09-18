@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 
 /**
- * todos os controladores iram usar essa classe
+ * todos os controladores irão usar essa classe
  */
 @ControllerAdvice
 public class RestExceptionHandler {
