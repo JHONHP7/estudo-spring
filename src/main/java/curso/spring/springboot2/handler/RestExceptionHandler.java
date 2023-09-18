@@ -1,0 +1,28 @@
+package curso.spring.springboot2.handler;
+
+import curso.spring.springboot2.exception.BadRequestException;
+import curso.spring.springboot2.exception.BadRequestExceptionDetails;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDateTime;
+
+/**
+ * todos os controladores iram usar essa classe
+ */
+@ControllerAdvice
+public class RestExceptionHandler {
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<BadRequestExceptionDetails> handlerBadRequestException(BadRequestException bre) {
+        return new ResponseEntity<>(BadRequestExceptionDetails.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .title("Bad request exception, Check the documentation")
+                .details(bre.getMessage())
+                .developerMessage(bre.getClass().getName())
+                .build(), HttpStatus.BAD_REQUEST);
+    }
+}
