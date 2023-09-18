@@ -5,6 +5,7 @@ import curso.spring.springboot2.mapper.AnimeMapper;
 import curso.spring.springboot2.repository.AnimeRepository;
 import curso.spring.springboot2.requests.AnimePostRequestBody;
 import curso.spring.springboot2.requests.AnimePutRequestBody;
+import exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class AnimeService {
     }
 
     public Anime findByIdOrThrowBadRequestException(Long id) {
-        return animeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not Found"));
+        return animeRepository.findById(id).orElseThrow(() -> new BadRequestException("Anime not Found"));
     }
 
     public Anime save(AnimePostRequestBody animePostRequestBody) {
