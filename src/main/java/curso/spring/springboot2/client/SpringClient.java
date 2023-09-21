@@ -39,13 +39,34 @@ public class SpringClient {
 //        Anime bokuNoHero = Anime.builder().name("Boku no hero").build();
 //        Anime bokuNoHeroSaved = new RestTemplate().postForObject("http://localhost:8080/animes", bokuNoHero, Anime.class);
 //        log.info("saved anime {} ", bokuNoHeroSaved);
-
+//
+        /**
+         * Utilizando exchange como post
+         */
         Anime samurai = Anime.builder().name("Samurai").build();
-        ResponseEntity<Anime> samuraiSaved = new RestTemplate().exchange("http://localhost:8080/animes", HttpMethod.POST, new HttpEntity<>(samurai, createJsonHeader()), Anime.class);
+        ResponseEntity<Anime> samuraiSaved = new RestTemplate().exchange("http://localhost:8080/animes", HttpMethod.POST,
+                new HttpEntity<>(samurai, createJsonHeader()), Anime.class);
         log.info("saved anime {} ", samuraiSaved);
+
+        /**
+         * Utilizando exchange como put
+         */
+        Anime animeToBeUpdated = samuraiSaved.getBody();
+        animeToBeUpdated.setName("Samurai 2");
+        ResponseEntity<Void> samuraiUpdated = new RestTemplate().exchange("http://localhost:8080/animes", HttpMethod.PUT,
+                new HttpEntity<>(animeToBeUpdated, createJsonHeader()), Void.class);
+        log.info(samuraiUpdated);
+
+        /**
+         * Utilizando exchange como delete
+         */
+        ResponseEntity<Void> samuraiDeleted = new RestTemplate().exchange("http://localhost:8080/animes/{id}", HttpMethod.DELETE,
+                null, Void.class, animeToBeUpdated.getId());
+        log.info(samuraiDeleted);
+
     }
 
-    private static HttpHeaders createJsonHeader(){
+    private static HttpHeaders createJsonHeader() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         return httpHeaders;
