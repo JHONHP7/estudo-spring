@@ -1,0 +1,39 @@
+jwt:
+  secret: sefazRJSecretKey
+  expiration: 86400000 #1 dia
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    #SEFAZ BANCO DE DADOS
+    url: jdbc:h2:file:C:/Temp/bancos-de-dados/animedb
+    #BANCO PRINCIPAL CASA
+    #    url: jdbc:h2:file:C:/Programas/ws-github/banco-de-dados-jrf/bancoImpugnacoes
+    #BANCO DE TESTES
+    #   url: jdbc:h2:file:C:/Programas/ws-github/banco-de-dados-jrf/bancoImpugnacoes2
+    username: sa
+    password:
+
+  h2:
+    console:
+      #enabled: true
+      path: /h2-console
+      settings.trace: false
+      settings.web-allow-others: false
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        format_sql: true
+        #default_schema: contencioso
+    hibernate:
+      ddl-auto: update
+
+#spring:
+#  profiles:
+#    active: test2
+#  jpa:
+#    open-in-view: true
